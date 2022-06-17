@@ -172,7 +172,7 @@ class ProgressaoList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):  # Função para que somente o usuário que cadastrou veja essa lista
         self.object_list = Progressao.objects.filter(usuario=self.request.user)
-        return 
+        return self.object_list
 
 
 

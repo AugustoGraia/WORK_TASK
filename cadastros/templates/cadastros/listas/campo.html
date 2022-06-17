@@ -1,0 +1,44 @@
+{% extends 'paginas/modelo-ifpr.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h3>Listas de Campos registrados</h3>
+    <div class="col-12 text-right">
+        <a href="{% url 'cadastro-campo' %}" class="btn btn-primary btn-sm">Cadastrar Campo
+            <i class="fa-solid fa-file-arrow-up"></i>
+        </a>
+    </div>
+ <hr>
+    <div class="table table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Opções</th>
+            </tr>
+            {% for campo in object_list %}
+            <tr>              
+                <td>{{campo.id}}</td>  
+                <td>{{campo.nome}}</td>
+                <td>{{campo.descricao}}</td>     
+                <td>
+                    <a href="{% url 'editar-campo' campo.id %}" class="btn btn-warning btn-sm">Editar
+                        <i class="fa fa-pencil"></i>
+                    </a>
+
+                    <a href="{% url 'excluir-campo' campo.id %}" class="btn btn-danger btn-sm">Excluir
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>    
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">Nenhum campo encontrado</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

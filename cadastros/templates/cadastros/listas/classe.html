@@ -1,0 +1,43 @@
+{% extends 'paginas/modelo-ifpr.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h3>Listas de Classes Registradas</h3>
+    <div class="col-12 text-right">
+        <a href="{% url 'cadastrar-classe' %}" class="btn btn-primary btn-sm">Cadastrar Classe
+            <i class="fa-solid fa-file-arrow-up"></i>
+        </a>
+    </div>
+ <hr>
+    <div class="table table-responsive">
+        <table class="table table-striped">
+            <tr>
+               <th>Nome</th>
+               <th>Nível</th>
+               <th>Descrição</th>
+               <th>Opções</th>
+            </tr>
+            {% for object in object_list %}
+            <tr>  
+                <td>{{ object.nome }}</td>
+                <td>{{ object.nivel }}</td>
+                <td>{{ object.descricao }}</td>                  
+                <td>
+                    <a href="{% url 'editar-classe' object.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a href="{% url 'excluir-classe' object.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>    
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">Nenhum campo encontrado</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

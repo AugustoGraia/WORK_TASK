@@ -39,19 +39,6 @@
 
 <body class="d-flex flex-column h-100">
     <main role="main" class="flex-shrink-0">
-
-
-        <!-- Bloco com a logo da cidade -->
-        {% block logo %}
-        <!-- <div class="container-fluid bg-white">
-            <div class="container border-bottom border-light p-3">
-                <img src="{% static 'img/ifpr-logo.png' %}" alt="" style="max-height: 65px;" class="img-fluid">
-            </div>
-        </div> -->
-        {% endblock %}
-
-
-        <!-- Bloco com o menu principal -->
         {% block menu %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-ifpr font-115 shadow">
 
@@ -124,7 +111,7 @@
                         </li>
                         {% else %}
                     <li class="nav-item ">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{% url 'registrar' %}">
                                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                                 Registrar
                             </a>
@@ -136,7 +123,6 @@
                             </a>
                         </li>
                         {% endif %}
-
                     </ul>
                 </div>
                 <!-- fim do container -->

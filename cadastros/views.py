@@ -1,4 +1,5 @@
 
+from multiprocessing import context
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView # Method
 from django.views.generic.list import ListView
@@ -22,6 +23,13 @@ class CampoCreate(GroupRequiredMixin ,LoginRequiredMixin ,CreateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-campos')
 
+    def get_context_data(self, *args, **kwargs):  # Para a definição do nome do tilulo que vc está (foi usado o     ['titulo'] no form.html)
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Cadastro de Campo"
+        context['button'] = "Cadastrar"
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
+
 class AtividadeCreate(GroupRequiredMixin ,LoginRequiredMixin ,CreateView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -29,6 +37,14 @@ class AtividadeCreate(GroupRequiredMixin ,LoginRequiredMixin ,CreateView):
     fields = ['numero', 'descricao', 'pontos', 'detalhes', 'campo']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('index')
+
+    def get_context_data(self, *args, **kwargs):  
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Cadastro de Atividades"
+        context['button'] = "Cadastrar"
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
+
 
 class StatusCreate(GroupRequiredMixin ,LoginRequiredMixin ,CreateView):
     login_url = reverse_lazy('login')
@@ -44,6 +60,13 @@ class ClasseCreate(LoginRequiredMixin, CreateView):
     fields = ['nome', 'nivel', 'descricao']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-classe')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Cadastro de Classe"
+        context['button'] = "Cadastrar"
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
 
 class CampusCreate(GroupRequiredMixin, LoginRequiredMixin ,CreateView):
     login_url = reverse_lazy('login')
@@ -86,6 +109,13 @@ class CampoUpdade(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-campos')
 
+    def get_context_data(self, *args, **kwargs): 
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Editar Campo"
+        context['button'] = "Salvar"
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
+
 class AtividadeUpdade(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -93,6 +123,13 @@ class AtividadeUpdade(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     fields = ['numero', 'descricao', 'pontos', 'detalhes', 'campo']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-campos')
+    
+    def get_context_data(self, *args, **kwargs):  
+        context = super().get_context_data(*args, **kwargs)
+        context['button'] = "Salvar"
+        context['titulo'] = "Alterar Atividade"
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
 
 class ProgressaoUpdate(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
@@ -101,7 +138,7 @@ class ProgressaoUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-progressao')
 
-    def get_object(self, queryset=None):        # Faz a referência para somento o usuário que criou a a progreção possa ter asseco a ela e editar pelo ID
+    def get_object(self, queryset=None): # Faz a referência para somento o usuário que criou a a progreção possa ter asseco a ela e editar pelo ID
         self.object = get_object_or_404(Progressao, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
 
@@ -111,6 +148,13 @@ class ClasseUpdate(LoginRequiredMixin, UpdateView):
     fields = ['nome', 'nivel', 'descricao']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-classe')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Alterar Classe"
+        context['button'] = "Salvar"
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
 
 ########## DELETE ##########
 
@@ -147,7 +191,6 @@ class ProgressaoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
         return self.object
 
 ########## LIST ##########
-
 
 class CampoList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')

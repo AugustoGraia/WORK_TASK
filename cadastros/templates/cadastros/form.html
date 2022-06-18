@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
-<h3>Cadastros</h3>
+<h3>{{ titulo }}</h3>
     <p class="lead">
         Preencha todos os campos obrigatorios
     </p>
@@ -15,8 +15,13 @@
          {% csrf_token %}
 
          {{ form|crispy }}
-
-         <button type="submit" class="btb btn-primary">Cadastrar</button>
+       
+            <button type="submit" class="btn btn-primary btn-sm">
+                {% autoescape off %}
+                {{ icon }}
+                {% endautoescape%}
+                {{ button }}
+            </button>          
     </form>
 
     <script>

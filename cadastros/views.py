@@ -45,7 +45,6 @@ class AtividadeCreate(GroupRequiredMixin ,LoginRequiredMixin ,CreateView):
         context['icon'] = '<i class="fa-solid fa-check-double"></i>'
         return context
 
-
 class StatusCreate(GroupRequiredMixin ,LoginRequiredMixin ,CreateView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -96,6 +95,24 @@ class ProgressaoCreate(LoginRequiredMixin, CreateView):
         # self.object.save()
 
         return url
+
+class ComprovanteCreate(LoginRequiredMixin ,CreateView):
+    login_url = reverse_lazy('login')
+    model = Comprovante
+    fields =  ['progressao', 'atividade', 'quantidade','data','data_final','arquivo']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = "Cadastro de Comprovantes"
+        context['button'] = "Cadastrar"
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
+
+
+
+
 
 ########## UPDATE ##########
 

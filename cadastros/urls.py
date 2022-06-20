@@ -1,7 +1,7 @@
 from django.urls import path
 # Importa as views que a gente criou
 
-from .views import CampoCreate, AtividadeCreate, StatusCreate, ClasseCreate, CampusCreate, ProgressaoCreate
+from .views import CampoCreate, AtividadeCreate, StatusCreate, ClasseCreate, CampusCreate, ProgressaoCreate, ComprovanteCreate
 from .views import CampoUpdade, AtividadeUpdade, ProgressaoUpdate, ClasseUpdate
 from .views import CampoDelete, AtividadeDelete, ProgressaoDelete, ClasseDelete
 from .views import CampoList, AtiviadeList, ClasseList, ProgressaoList
@@ -17,6 +17,7 @@ urlpatterns = [
     path('cadastrar/classe/', ClasseCreate.as_view(), name='cadastrar-classe'),
     path('cadastrar/campus/', CampusCreate.as_view(), name='cadastrar-campus'),
     path('cadastrar/progrecao/', ProgressaoCreate.as_view(), name='cadastrar-progessao'),
+    path('cadastrar/comprovante/', ComprovanteCreate.as_view(), name='cadastrar-comprovante'),
     
 
     # QUANDO FOR FAZER UM UPDATE SEGUIR ESSES PASSOS

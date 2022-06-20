@@ -1,10 +1,11 @@
 
-from multiprocessing import context
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView # Method
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin  # Encerrar sessão 
-from braces.views import GroupRequiredMixin # Grupos de usuários de altorização de alteração
+from braces.views import GroupRequiredMixin
+
+import usuarios # Grupos de usuários de altorização de alteração
 
 # Uma exibição que exibe um formulário para criar um objeto, exibindo novamente o formulário com erros de validação (se houver) e salvando o objeto.
 
@@ -96,23 +97,23 @@ class ProgressaoCreate(LoginRequiredMixin, CreateView):
 
         return url
 
-class ComprovanteCreate(LoginRequiredMixin ,CreateView):
+class ComprovanteCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = Comprovante
-    fields =  ['progressao', 'atividade', 'quantidade','data','data_final','arquivo']
-    template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('index')
+    fields = ['progressao', 'atividade', 'quantidade', 'data', 'data_final', 'arquivo']
+    template_name = 'cadastros/form-upload.html'
+    success_url = reverse_lazy('listar-comprovante')
+
+    def form_valid(self, form):  
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)
+        return url
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['titulo'] = "Cadastro de Comprovantes"
-        context['button'] = "Cadastrar"
+        context['button'] = 'Cadastrar'
         context['icon'] = '<i class="fa-solid fa-check-double"></i>'
         return context
-
-
-
-
 
 ########## UPDATE ##########
 
@@ -173,6 +174,26 @@ class ClasseUpdate(LoginRequiredMixin, UpdateView):
         context['icon'] = '<i class="fa-solid fa-check-double"></i>'
         return context
 
+class ComprovanteUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
+    model = Comprovante
+    fields = ['progressao', 'atividade', 'quantidade', 'data', 'data_final', 'arquivo']
+    template_name = 'cadastros/form-upload.html'
+    success_url = reverse_lazy('listar-comprovante')
+
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(
+            Comprovante, pk=self.kwargs['pk'], usuario=self.request.user)
+        return self.object
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['button'] = 'Salvar'
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
+
+
+    
 ########## DELETE ##########
 
 class CampoDelete(GroupRequiredMixin ,LoginRequiredMixin ,DeleteView):
@@ -234,5 +255,7 @@ class ProgressaoList(LoginRequiredMixin, ListView):
         self.object_list = Progressao.objects.filter(usuario=self.request.user)
         return self.object_list
 
-
-
+class ComprovanteList(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
+    model = Comprovante
+    template_name = 'cadastros/listas/comprovante.html'

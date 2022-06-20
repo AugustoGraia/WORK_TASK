@@ -1,4 +1,3 @@
-from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User  # Importação para fazer o uso do USUARIO para fazer a separação 
 from django.contrib.auth.models import Group # Para grupos de usuários
@@ -6,6 +5,9 @@ from django.contrib.auth.models import Group # Para grupos de usuários
 # models.py: Arquivo responsável por definir os modelos da aplicação. Basicamente, um modelo é a        representação das tabelas a serem criadas no banco de dados.
 
 # Classe que cria tabela no banco de dados
+def user_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'usuario_{0}/{1}'.format(instance.user.id, filename)
 
 class Campo(models.Model):
     nome = models.CharField(max_length=50)  #Tamanho que tera a string
@@ -61,7 +63,7 @@ class Comprovante(models.Model):
     data = models.DateField()
     data_final = models.DateField(null=True, blank=True, help_text="Informar apenas se o comprovante for relativo a um período.")
     arquivo = models.FileField(upload_to='pdf/')
-    usuario = models.ForeignKey(User, on_delete=models.PROTECT) 
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return "[{}] {} - {}/{}".format(self.pk, self.usuario, self.progressao, self.atividade)

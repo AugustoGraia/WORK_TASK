@@ -2,9 +2,9 @@ from django.urls import path
 # Importa as views que a gente criou
 
 from .views import CampoCreate, AtividadeCreate, StatusCreate, ClasseCreate, CampusCreate, ProgressaoCreate, ComprovanteCreate
-from .views import CampoUpdade, AtividadeUpdade, ProgressaoUpdate, ClasseUpdate
+from .views import CampoUpdade, AtividadeUpdade, ProgressaoUpdate, ClasseUpdate, ComprovanteUpdate
 from .views import CampoDelete, AtividadeDelete, ProgressaoDelete, ClasseDelete
-from .views import CampoList, AtiviadeList, ClasseList, ProgressaoList
+from .views import CampoList, AtiviadeList, ClasseList, ProgressaoList, ComprovanteList
 
 # Tem que ser urlpatterns porque é padrão do Django
 
@@ -19,13 +19,14 @@ urlpatterns = [
     path('cadastrar/progrecao/', ProgressaoCreate.as_view(), name='cadastrar-progessao'),
     path('cadastrar/comprovante/', ComprovanteCreate.as_view(), name='cadastrar-comprovante'),
     
-
+    
     # QUANDO FOR FAZER UM UPDATE SEGUIR ESSES PASSOS
     # <int:pk>
     path('editar/campo/<int:pk>', CampoUpdade.as_view(), name='editar-campo'),
     path('editar/atividade/<int:pk>', AtividadeUpdade.as_view(), name='editar-atividade'),
     path('editar/classe/<int:pk>/', ClasseUpdate.as_view(), name='editar-classe'),
     path('editar/progressao/<int:pk>/', ProgressaoUpdate.as_view(), name='editar-progressao'),
+    path('editar/comprovante/<int:pk>/', ComprovanteUpdate.as_view(), name='editar-comprovante'),
     
     path('excluir/campo/<int:pk>', CampoDelete.as_view(), name='excluir-campo'),
     path('excluir/atividade/<int:pk>', AtividadeDelete.as_view(), name='excluir-atividade'),
@@ -37,5 +38,6 @@ urlpatterns = [
     path('listar/atividades/',AtiviadeList.as_view(), name='listar-atividades'),
     path('listar/classes/', ClasseList.as_view(), name='listar-classe'),
     path('listar/progressoes/', ProgressaoList.as_view(), name="listar-progressao"),
+    path('listar/comprovante/', ComprovanteList.as_view(), name='listar-comprovante'),
 
 ]

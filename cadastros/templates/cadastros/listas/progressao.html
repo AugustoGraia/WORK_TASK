@@ -30,8 +30,12 @@
                     <td>{{ object.data_final }}</td>
                     <td>{{ object.usuario }}</td>                   
                     <td>
-                        <a href="{% url 'editar-progressao' object.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="{% url 'excluir-progressao' object.pk  %}" class="btn btn-danger btn-sm">Excluir</a>
+                        <a href="{% url 'editar-progressao' object.pk %}" class="btn btn-warning btn-sm">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a href="{% url 'excluir-progressao' object.pk  %}" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
                     </td>    
                 </tr>
                 {% empty %}
@@ -77,7 +81,6 @@
             }
         }
     });
-
     });
 </script>
 {% endblock %}

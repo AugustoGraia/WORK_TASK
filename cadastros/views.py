@@ -165,6 +165,13 @@ class ProgressaoUpdate(LoginRequiredMixin, UpdateView):
         self.object = get_object_or_404(Progressao, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = 'Editar Progressão'
+        context['button'] =  'Salvar'
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
+
 class ClasseUpdate(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     model = Classe

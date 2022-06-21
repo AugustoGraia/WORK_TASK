@@ -25,8 +25,8 @@
     <link href="{% static 'css/ifpr.css' %}" rel="stylesheet">
 
     <!-- Importação do Datatables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css" />
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css"/>
+ 
     <!-- Ícone na barra de abas -->
     <!-- <link rel="shortcut icon" href="{% static 'img/favicon.png' %}"> -->
 
@@ -98,7 +98,7 @@
                                 <span id="username">{{ request.user }}</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'atualizar-dados' %}">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Meus dados</a>
                                 <a class="dropdown-item" href="#">
@@ -200,13 +200,12 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
 
     <!-- Bloco destinado aos scripts para cada página -->
     {% block scripts %}
 
     {% endblock %}
-
 </body>
 
 </html>

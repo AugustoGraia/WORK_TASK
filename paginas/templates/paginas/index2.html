@@ -6,8 +6,12 @@
 
 {% if user.perfil.nome_completo %}
 Bem vindo ao sistema {{ user.perfil.nome_completo }}.
+<br>
+Seu CPF é {{ user.perfil.cpf }}
+<br>
+E seu telefone é {{ user.perfil.telefone }}
 {% else %}
-Você precisa completar seu cadastro. Acesse os <a href=>meus dados</a> para atualizar.
+Você precisa completar seu cadastro. Acesse os <a href="{% url 'atualizar-dados'%}">meus dados</a> para atualizar.
 {% endif %}
 
 {% endblock %}

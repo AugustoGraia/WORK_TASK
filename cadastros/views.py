@@ -1,4 +1,5 @@
 
+from wsgiref.handlers import format_date_time
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView # Method
 from django.views.generic.list import ListView
@@ -84,18 +85,22 @@ class ProgressaoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('listar-progressao')
 
     def form_valid(self, form): # Função para mostrar qual usuário cadastrol
-        
+    
         # Validando que o usuario é igual request.User
         form.instance.usuario = self.request.user
-
         # Criando o objeto com os dados do usuario
         url = super().form_valid(form)
-
         # Aterando o objeto 
         # self.object.observacao += " [TESTE]"
         # self.object.save()
-
         return url
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = 'Cadastrar progessao'
+        context['button'] = 'Cadastrar'
+        context['icon'] = '<i class="fa-solid fa-check-double"></i>'
+        return context
 
 class ComprovanteCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
@@ -191,8 +196,6 @@ class ComprovanteUpdate(LoginRequiredMixin, UpdateView):
         context['button'] = 'Salvar'
         context['icon'] = '<i class="fa-solid fa-check-double"></i>'
         return context
-
-
     
 ########## DELETE ##########
 

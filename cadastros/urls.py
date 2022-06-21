@@ -16,7 +16,7 @@ urlpatterns = [
     path('cadastrar/status/', StatusCreate.as_view(), name='cadastrar-status'),
     path('cadastrar/classe/', ClasseCreate.as_view(), name='cadastrar-classe'),
     path('cadastrar/campus/', CampusCreate.as_view(), name='cadastrar-campus'),
-    path('cadastrar/progrecao/', ProgressaoCreate.as_view(), name='cadastrar-progessao'),
+    path('cadastrar/progressao/', ProgressaoCreate.as_view(), name='cadastrar-progessao'),
     path('cadastrar/comprovante/', ComprovanteCreate.as_view(), name='cadastrar-comprovante'),
     
     

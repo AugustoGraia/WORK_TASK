@@ -12,30 +12,72 @@
     </div>
  <hr>
     <div class="table table-responsive">
-        <table class="table table-striped">
-            <tr>
-                <th>Classe</th>
-                <th>Data inicial</th>
-                <th>Data final</th>
-                <th>Usuário</th>
-                <th>Opções</th>
-            </tr>
-            {% for object in object_list %}
-            <tr>  
-                <td>{{ object.classe }}</td>
-                <td>{{ object.data_inicial }}</td>
-                <td>{{ object.data_final }}</td>
-                <td>{{ object.usuario }}</td>                   
-                <td>
-                    <a href="{% url 'editar-progressao' object.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{% url 'excluir-progressao' object.pk  %}" class="btn btn-danger btn-sm">Excluir</a>
-                </td>    
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">Nenhum campo encontrado</td>
-            </tr>
-            {% endfor %}
+        <table class="table table-striped" id="tab-list">
+            <thead>
+                <tr>
+                    <th>Classe</th>
+                    <th>Data inicial</th>
+                    <th>Data final</th>
+                    <th>Usuário</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                <tr>  
+                    <td>{{ object.classe }}</td>
+                    <td>{{ object.data_inicial }}</td>
+                    <td>{{ object.data_final }}</td>
+                    <td>{{ object.usuario }}</td>                   
+                    <td>
+                        <a href="{% url 'editar-progressao' object.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'excluir-progressao' object.pk  %}" class="btn btn-danger btn-sm">Excluir</a>
+                    </td>    
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum campo encontrado</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+       
+        $("#tab-list").DataTable({
+        responsive: true,
+        // "bSort": false,
+        "aaSorting": [],
+        "pageLength": 50,
+        "language": {
+            "decimal": "",
+            "emptyTable": "Sem dados disponíveis",
+            "info": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+            "infoEmpty": "Mostrando de 0 até 0 de 0 registos",
+            "infoFiltered": "(filtrado de _MAX_ registos no total)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ registos",
+            "loadingRecords": "A carregar dados...",
+            "processing": "A processar...",
+            "search": "Procurar:",
+            "zeroRecords": "Não foram encontrados resultados",
+            "paginate": {
+                "first": "Primeiro",
+                "last": "Último",
+                "next": "Seguinte",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": ordem crescente",
+                "sortDescending": ": ordem decrescente"
+            }
+        }
+    });
+
+    });
+</script>
 {% endblock %}

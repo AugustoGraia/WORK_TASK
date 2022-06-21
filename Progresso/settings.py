@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cadastros.apps.CadastrosConfig',
     'usuarios.apps.UsuariosConfig',
     'crispy_forms',
+    'django_cleanup.apps.CleanupConfig',
     #'nomedapasta.nomedoarquivo.nomedaclass'
 ]
 

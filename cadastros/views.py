@@ -1,5 +1,3 @@
-
-from wsgiref.handlers import format_date_time
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView # Method
 from django.views.generic.list import ListView
@@ -226,7 +224,6 @@ class ClasseDelete(LoginRequiredMixin, DeleteView):
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-classe')
 
-
 class ProgressaoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador" 
@@ -236,6 +233,16 @@ class ProgressaoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
 
     def get_object(self, queryset=None):
         self.object = get_object_or_404(Progressao, pk=self.kwargs['pk'], usuario=self.request.user)
+        return self.object
+
+class ComprovanteDelete(LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy('login')
+    model = Comprovante
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-comprovante')
+
+    def get_object(self, queryset=None): # Método para que só o usuário que queriou o comprovante possa excluir
+        self.object = get_object_or_404(Comprovante, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
 
 ########## LIST ##########

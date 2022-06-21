@@ -3,7 +3,7 @@ from django.urls import path
 
 from .views import CampoCreate, AtividadeCreate, StatusCreate, ClasseCreate, CampusCreate, ProgressaoCreate, ComprovanteCreate
 from .views import CampoUpdade, AtividadeUpdade, ProgressaoUpdate, ClasseUpdate, ComprovanteUpdate
-from .views import CampoDelete, AtividadeDelete, ProgressaoDelete, ClasseDelete
+from .views import CampoDelete, AtividadeDelete, ProgressaoDelete, ClasseDelete, ComprovanteDelete
 from .views import CampoList, AtiviadeList, ClasseList, ProgressaoList, ComprovanteList
 
 # Tem que ser urlpatterns porque é padrão do Django
@@ -32,6 +32,7 @@ urlpatterns = [
     path('excluir/atividade/<int:pk>', AtividadeDelete.as_view(), name='excluir-atividade'),
     path('excluir/classe/<int:pk>/', ClasseDelete.as_view(), name='excluir-classe'),
     path('excluir/progressao/<int:pk>/', ProgressaoDelete.as_view(), name="excluir-progressao"),
+    path('excluir/comprovante/<int:pk>/', ComprovanteDelete.as_view(), name="excluir-comprovante"),
 
 
     path('listar/campos/', CampoList.as_view(), name='listar-campos'),
